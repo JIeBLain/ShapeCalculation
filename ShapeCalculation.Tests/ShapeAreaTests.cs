@@ -49,12 +49,26 @@ public class ShapeAreaTests
     [InlineData(4, 5, 20)]
     [InlineData(12, 3, 8)]
     [InlineData(6, 4, 11)]
+    [InlineData(0, 4, 11)]
+    [InlineData(6, -2, 11)]
+    [InlineData(6, 4, -10)]
     public void Constructor_Should_Throw_InvalidTriangleException_When_Invalid_Arguments_Are_Passed(
         double a, double b, double c)
     {
         Action act = () => { _ = new Triangle(a, b, c); };
 
         act.Should().Throw<InvalidTriangleException>();
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-5)]
+    [InlineData(-23)]
+    public void Constructor_Should_Throw_InvalidCircleException_When_Circle_Radius_Is_Zero_Or_Negative(double radius)
+    {
+        Action act = () => { _ = new Circle(radius); };
+
+        act.Should().Throw<InvalidCircleException>();
     }
 
     public static IEnumerable<object[]> GetCirclesData(int precision)

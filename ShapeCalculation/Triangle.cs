@@ -11,7 +11,7 @@ public class Triangle : IShape
         B = b;
         C = c;
 
-        if (a + b <= c || a + c <= b || b + c <= a)
+        if (!IsValid())
             throw new InvalidTriangleException(this);
     }
 
@@ -38,5 +38,12 @@ public class Triangle : IShape
         var semiPerimeter = (A + B + C) / 2;
         var area = Math.Sqrt(semiPerimeter * (semiPerimeter - A) * (semiPerimeter - B) * (semiPerimeter - C));
         return Math.Round(area, precision);
+    }
+
+    private bool IsValid()
+    {
+        if (A <= 0 || B <= 0 || C <= 0)
+            return false;
+        return A + B > C && A + C > B && B + C > A;
     }
 }
